@@ -4,19 +4,25 @@ class BankAccount:
         self.name = name
         self.currency = currency
         self._history = ["Account was created"]
+        self.check_if_Negative(self._balance)
+
+    def check_if_Negative(self, value):
+        if value < 0:
+            raise ValueError #("The value is negative. Action not allowed")
 
     def deposit(self, amount):
+        self.check_if_Negative(amount)
         self._balance += amount
         self._history.append("Deposited {}$".format(amount))
         return self._balance
 
     def balance(self):
-        self._history.append("Balance checked ->  {}$".format(self._balance))
+        self._history.append("Balance check -> {}$".format(self._balance))
         return self._balance
 
     def withdraw(self, amount):
         self._history.append("{}$ was withdrawed".format(amount))
-        amount = amount
+        # amount = amount
         if self._balance >= amount:
             self._balance -= amount
             return True
@@ -24,7 +30,8 @@ class BankAccount:
             return False
 
     def __str__(self):
-        message = "Bank account for {} with balance of {}{}".format(self.name, self._balance, self.currency)
+        message = "Bank account for {} with balance of {}{}" \
+                        .format(self.name, self._balance, self.currency)
         return message
 
     def __int__(self):
@@ -47,23 +54,7 @@ class BankAccount:
         return 1000
 
     def history(self):
-        self._history.append("History of {} account called".format(self.name))
+        # self._history.append("History of {} account called".format(self.name))
         return self._history
 
-# account = BankAccount("Rado", 100, "$")
-# print(account)
-# print(account.deposit(13))
-# print(account.balance())
-# print(str(account))
-# print(int(account))
-# account.withdraw(100)
-# print(account.balance())
-# print(account.history())
 
-# rado = BankAccount("Rado", 1000, "BGN")
-# ivo = BankAccount("Ivo", 0, "BGN")
-# print(rado.transfer_to(ivo, 500))
-# print(rado.balance())
-# print(ivo.balance())
-# print(rado.history())
-# print(ivo.history())
