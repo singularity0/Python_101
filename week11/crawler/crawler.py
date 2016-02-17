@@ -40,7 +40,7 @@ result = {}
 failed_requests = 0
 for index in range(0, len(visited)):
     try: 
-        r = requests.get(visited[index])
+        r = requests.head(visited[index])
 
         for i in r.headers:
             if i == 'Server':
@@ -57,6 +57,9 @@ for index in range(0, len(visited)):
         failed_requests += 1
 
 print(result)
+
+doc_visited.close()
+doc_srv_list.close()
 
 x_axis = [x for x in range(len(result))]
 y_axis = []
