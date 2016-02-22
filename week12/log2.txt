@@ -1,0 +1,7 @@
+
+function was called and took 0:00:00.035092 seconds to complete
+function was called and took 0:00:00.023125 seconds to complete
+function was called and took 0:00:00.036966 seconds to complete
+function was called and took 0:00:00.022328 seconds to complete
+function was called and took 0:00:00.039146 seconds to complete
+function was called and took 0:00:00.046066 seconds to complete
