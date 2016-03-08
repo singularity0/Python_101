@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>COurses index page</title>
+    <link rel="stylesheet" href="">
+
+</head>
+<body>
+    <h1>Hello Panda</h1>
+    <h2>{{ course2.duration }}</h2>
+    <table border="1" style="width:50%" border-spacing="5px">
+        <caption>Courses table</caption>
+        <thead>
+            <tr>
+                <th>Course Name</th>
+                <th>Description</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Approximate Duration</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in courses %}
+            <tr>
+                <td align="center">{{ c.name }}</td>
+                <td align="center">{{ c.description }}</td>
+                <td align="center">{{ c.start_date|date  }}</td>
+                <td align="center">{{ c.end_date|date  }}</td>
+                <td align="center">{{ c.duration}}</td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

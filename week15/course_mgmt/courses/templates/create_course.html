@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Create Course Form</title>
+    <link rel="stylesheet" href="">
+    <style type="text/css" media="screen">
+        form  { display: table;      }
+        label { display: table-cell; }
+        input { display: table-cell; }
+    </style>
+</head>
+<body>
+    <h1>Complete the form below to create a new course:</h1> 
+
+     <form role="form" method="POST">
+        {% csrf_token %}
+      <div class="form-group">
+        <label>Course Name </label>
+        <input type="text" class="form-control" id="Course_Name">
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <input type="text" class="form-control" id="desc">
+      </div>
+      <div class="form-group">
+        <label>Start Date</label>
+        <input type="text" class="form-control" id="st_date">
+      </div>
+      <div class="form-group">
+        <label>End Date</label>
+        <input type="text" class="form-control" id="end_date">
+      </div>
+      <!-- {% csrf_token %} -->
+      <button type="submit" class="btn btn-default">Create</button>
+    </form>
+
+</body>
+</html>
