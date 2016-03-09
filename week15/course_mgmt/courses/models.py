@@ -1,5 +1,8 @@
+
 from django.db import models
-from datetime import datetime, date
+from django.forms import ModelForm
+# from datetime import datetime, date, timedelta
+
 
 # Create your models here.
 class Course(models.Model):
@@ -12,16 +15,22 @@ class Course(models.Model):
 
     # def __str__(self):
     #     return self.description
-    def __init__(self, name, description, start_date, end_date):
-        self.name = name
-        self.description = description
-        self.start_date = start_date
-        self.end_date = end_date
+
+    # def __init__(self, name, description, start_date, end_date):
+    #     self.name = name
+    #     self.description = description
+    #     self.start_date = start_date
+    #     self.end_date = end_date
 
     def duration(self):
         delta = ((self.end_date) - (self.start_date))
         result = round(delta.days / 30)
         return result
 
-course1 = Course(name='Programming 101 with Python', description='Python!', start_date=datetime(day=1,month=1,year=2016) , end_date=datetime(day=1,month=3,year=2016))
-course2 = Course(name='Programming 101 with Ruby', description='Ruby.', start_date=datetime(day=10,month=1,year=2016) , end_date=datetime(day=1,month=3,year=2016))
+
+class Create_course(ModelForm):
+    class Meta:
+        model = Course
+        fields = ['name', 'description', 'start_date', 'end_date']
+
+

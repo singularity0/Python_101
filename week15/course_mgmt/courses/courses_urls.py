@@ -1,6 +1,6 @@
-from django.conf.urls import include, url
+from django.conf.urls import url
 
-from .views import get_table
+from .views import *
 
 
 urlpatterns = [

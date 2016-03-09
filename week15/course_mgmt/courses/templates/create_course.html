@@ -14,26 +14,29 @@
 <body>
     <h1>Complete the form below to create a new course:</h1> 
 
-     <form role="form" method="POST">
+     <form action="." method="POST">
         {% csrf_token %}
-      <div class="form-group">
-        <label>Course Name </label>
-        <input type="text" class="form-control" id="Course_Name">
-      </div>
-      <div class="form-group">
-        <label>Description</label>
-        <input type="text" class="form-control" id="desc">
-      </div>
-      <div class="form-group">
-        <label>Start Date</label>
-        <input type="text" class="form-control" id="st_date">
-      </div>
-      <div class="form-group">
-        <label>End Date</label>
-        <input type="text" class="form-control" id="end_date">
-      </div>
-      <!-- {% csrf_token %} -->
-      <button type="submit" class="btn btn-default">Create</button>
+         <!-- {{ form }} -->
+        <div class="form-group">
+          <label>Course Name </label>
+          <input type="text" class="form-control" id="Course_Name" value="{{ form.name }}">
+
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <input type="text" class="form-control" id="desc" value="{{ form.description }}">
+        </div>
+        <div class="form-group">
+          <label>Start Date</label>
+          <input type="datetime" class="form-control" id="st_date" value="{{ form.start_date }}">
+        </div>
+        <div class="form-group">
+          <label>End Date</label>
+          <input type="datetime" class="form-control" id="end_date" value="{{ form.end_date }}">
+
+        </div>
+        <!-- {% csrf_token %} -->
+        <button type="submit" class="btn btn-default" value="submit">Create</button>
     </form>
 
 </body>
