@@ -1,15 +1,15 @@
 
 from django.db import models
 from django.forms import ModelForm
-# from datetime import datetime, date, timedelta
+from datetime import datetime, date, timedelta
 
 
 # Create your models here.
 class Course(models.Model):
     name = models.CharField(max_length = 140, null=False)
     description = models.CharField(max_length = 140)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField()
+    start_date = models.DateField(help_text="format: YYYY-MM-DD")
+    end_date = models.DateField(help_text="format: YYYY-MM-DD")
     # duration = models.DateTimeField(end_date - start_date).months
 
 

@@ -19,6 +19,7 @@ from courses import courses_urls
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', include(courses_urls))
+    url(r'^course/', include(courses_urls)),
+    url(r'^$', 'courses.views.get_table', name='home'),
     
 ]

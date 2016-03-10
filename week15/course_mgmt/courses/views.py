@@ -1,21 +1,20 @@
 from django.shortcuts import render
 from .models import Course, Create_course
 from datetime import datetime
-# from django.template import RequestContext
 from .models import Course
-# from django.contrib import messages
-# from django import forms
-from django.http import HttpResponse
-
-
+from django.http import HttpResponse, HttpResponseRedirect
+from django.core.urlresolvers import reverse
 
 def get_table(request):
-    course1 = Course(name='Programming 101 with Python', description='Python!', start_date=datetime(day=1,month=1,year=2016) , end_date=datetime(day=1,month=3,year=2016))
+    course1 = Course(name='Programming 101 with Python', description='Python!', start_date=datetime(
+        day=1, month=1, year=2016), end_date=datetime(day=1, month=3, year=2016))
     course1.save()
-    course2 = Course(name='Programming 101 with Ruby', description='Ruby.', start_date=datetime(day=10,month=1,year=2016) , end_date=datetime(day=1,month=3,year=2016))
+    course2 = Course(name='Programming 101 with Ruby', description='Ruby.', start_date=datetime(
+        day=10, month=1, year=2016), end_date=datetime(day=1, month=3, year=2016))
     course2.save()
-    courses = [course1, course2]
-    return render(request, 'index.html',locals())
+    # courses = Course.objects.all()
+    courses = Course.objects.all()
+    return render(request, 'index.html', locals())
 
 
 def python_page(request):
@@ -27,31 +26,48 @@ def ruby_page(request):
 
     return render(request, 'Ruby.html', locals())
 
+
 def new_course_create(request):
     if request.method == 'POST':
-            form = Create_course(request.POST)
-            
-            if form.is_valid():
-            # if form:
-                form.save()
-                return HttpResponse("Thank you")
-                # return render(request, 'thank_you.html')
-                # return HttpResponseRedirect(reverse('app_name:url'))
-            else:
-                # new_course_create()
-                return HttpResponse("Form Not Valid {}".format(form['description']))
-                # return messages.error(request, "Error")
+        name = request.POST['name']
+        # print(request.POST)
+        des = request.POST['desc']
+        start = request.POST['st_date']
+        end = request.POST['end_date']
 
+        new_course = Course(name=name, description=des, start_date=start, end_date=end)
+        new_course.save()
+
+        return HttpResponse("Thank you")
+
+    form = Course()
+    return render(request, 'create_course.html', locals())
+
+
+def edit_course(request, lang=None):
+    # lang[0] = lang[0].upper()
+    # entry = Course.objects.all()
+    # print(Course.objects.get(pk=2).name)
+    lang = lang[0].upper() + lang[1:]
+    # print(lang)
+    if request.method == 'POST':
+        new_name = request.POST['name']
+        new_desc = request.POST['desc']
+        new_start = request.POST['st_date']
+        new_end = request.POST['end_date']
     
-    form = Create_course()
-    return render(request, 'create_course.html', {'form':form})
+        x = Course.objects.filter(name__contains=lang)
+        
+        for item in x:
+            item.name = new_name
+            item.save()
+            item.description = new_desc
+            item.save()
+            item.start_date = new_start
+            item.save()
+            item.end_date = new_end
+            item.save()
 
-# def new_course_save(request):
-#     if request.method == 'POST':
-#         form = Course(request.POST)
-#         form.save()
-#         if form.is_valid():
-#             return render(request, 'thank_you.html')
-#         else:
-#             new_course_create()
+        return HttpResponseRedirect(reverse('home'))
 
+    return render(request, 'modify_course.html', locals())

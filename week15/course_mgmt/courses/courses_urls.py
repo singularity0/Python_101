@@ -1,13 +1,12 @@
 from django.conf.urls import url
 
-from .views import *
+from .views import get_table, python_page, ruby_page, new_course_create, edit_course
 
 
 urlpatterns = [
-  # url(r'^$', home, name='home'),
-  url(r'^$', 'courses.views.get_table', name='home'),
-  url(r'^course/python/$', 'courses.views.python_page', name = 'python'),
-  url(r'^course/ruby/$', 'courses.views.ruby_page', name = 'ruby'),
-  url(r'^course/new/$', 'courses.views.new_course_create', name = 'create'),
+    url(r'^python/$', 'courses.views.python_page', name='python'),
+    url(r'^ruby/$', 'courses.views.ruby_page', name='ruby'),
+    url(r'^new/$', 'courses.views.new_course_create', name='create'),
+    url(r'^edit/(?P<lang>[A-z]{1,20})/$', 'courses.views.edit_course', name='edit')
 
 ]
