@@ -11,11 +11,11 @@ pattern = consts.host_pattern
 start = consts.host_to_start
 
 rr = requests.get(start)
-doc_visited = open('doc_visited.txt' , 'w')
+doc_visited = open('doc_visited.txt', 'w')
 doc_srv_list = open('srv_list.txt', 'w')
 
 visited = []
-soup = BeautifulSoup(rr.text,  'html.parser')
+soup = BeautifulSoup(rr.text, 'html.parser')
 
 for link in soup.find_all('a'):
     href = link.get("href")
@@ -27,7 +27,7 @@ for link in soup.find_all('a'):
 
         elif href.startswith('link.php?id'):
 
-            visited.append(start + '/' +(href))
+            visited.append(start + '/' + (href))
 
 for i in visited:
     # print(i)
@@ -39,7 +39,7 @@ print(len(visited))
 result = {}
 failed_requests = 0
 for index in range(0, len(visited)):
-    try: 
+    try:
         r = requests.head(visited[index])
 
         for i in r.headers:
@@ -68,9 +68,9 @@ for k, v in result.items():
     servers.append(k)
     y_axis.append(v)
 plt.xticks(x_axis, servers)
-plt.title("Server distribution for domains \n linking {}: ".format(consts.host_to_start))
+plt.title(
+    "Server distribution for domains \n linking {}: ".format(consts.host_to_start))
 plt.xlabel("Server type")
 plt.ylabel('number of servers')
-plt.bar(x_axis, y_axis, align = 'center')
+plt.bar(x_axis, y_axis, align='center')
 plt.show()
-

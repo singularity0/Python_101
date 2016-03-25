@@ -24,7 +24,7 @@ def iterations_of_nan_expand(expanded):
     split = expanded.split('Not a ')
     if any([True for x in split if not x == '']):
         return False
-    return sum([1 for x in split if x == ''])-1
+    return sum([1 for x in split if x == '']) - 1
 
 
 def group(arg):
@@ -33,8 +33,8 @@ def group(arg):
     result = []
     result.append(([arg[0]]))
     for item in range(1, len(arg)):
-        if arg[item] == arg[item-1]:
-            result[len(result)-1].append(arg[item])
+        if arg[item] == arg[item - 1]:
+            result[len(result) - 1].append(arg[item])
         else:
             result.append([arg[item]])
     return result
@@ -47,18 +47,18 @@ def max_consecutive(items):
 def gas_stations(distance, tank_size, stations):
     ref_num = tank_size
     min_stations = []
-    if stations[len(stations)-1] + ref_num < distance:
+    if stations[len(stations) - 1] + ref_num < distance:
         return 'no solution'
-    stations.append(distance+1)
+    stations.append(distance + 1)
 
-    for i in range(0, len(stations)+1):
+    for i in range(0, len(stations) + 1):
         if stations[i] > ref_num:
-            min_stations.append(stations[i-1])
-            ref_num = stations[i-1] + 90
+            min_stations.append(stations[i - 1])
+            ref_num = stations[i - 1] + 90
             if ref_num >= distance:
                 min_stations.append(stations[i])
                 break
-    return min_stations[:len(min_stations)-1]
+    return min_stations[:len(min_stations) - 1]
 
 
 def sum_of_numbers(st):
@@ -73,14 +73,14 @@ def numbers_to_message(arr):
     split = group(arr)
     print(split)
     d = {'a': [2], 'b': [2, 2], 'c': [2, 2, 2],
-        'd': [3], 'e': [3, 3], 'f': [3, 3, 3],
-        'g': [4], 'h': [4, 4], 'i': [4, 4, 4],
-        'j': [5], 'k': [5, 5], 'l': [5, 5, 5],
-        'm': [6], 'n': [6, 6], 'o': [6, 6, 6],
-        'p': [7], 'q': [7, 7], 'r': [7, 7, 7], 's': [7, 7, 7, 7],
-        't': [8], 'u': [8, 8], 'v': [8, 8, 8],
-        'w': [9], 'x': [9, 9], 'y': [9, 9, 9], 'z':[9, 9, 9, 9]
-        }
+         'd': [3], 'e': [3, 3], 'f': [3, 3, 3],
+         'g': [4], 'h': [4, 4], 'i': [4, 4, 4],
+         'j': [5], 'k': [5, 5], 'l': [5, 5, 5],
+         'm': [6], 'n': [6, 6], 'o': [6, 6, 6],
+         'p': [7], 'q': [7, 7], 'r': [7, 7, 7], 's': [7, 7, 7, 7],
+         't': [8], 'u': [8, 8], 'v': [8, 8, 8],
+         'w': [9], 'x': [9, 9], 'y': [9, 9, 9], 'z': [9, 9, 9, 9]
+         }
 #   check for capital letters
     specials = [-1, 0, 1]
     digits_with_3_letters = [2, 3, 4, 5, 6, 8]
@@ -95,11 +95,10 @@ def numbers_to_message(arr):
             while len(split[i]) >= 4:
                 split[i] = split[i][:-4]
 
-
     print(split)
     result = ''
     for i in range(0, len(split)):
-        if split[i] == [-1] :
+        if split[i] == [-1]:
             continue
         if split[i] == [0]:
             result += ' '
@@ -107,7 +106,7 @@ def numbers_to_message(arr):
 
         for k, v in d.items():
             if split[i] == v:
-                if split[i-1] == [1]:
+                if split[i - 1] == [1]:
                     result += k.upper()
                 else:
                     result += k
@@ -118,14 +117,14 @@ def numbers_to_message(arr):
 
 def message_to_numbers(messsage):
     d = {'a': [2], 'b': [2, 2], 'c': [2, 2, 2],
-    'd': [3], 'e': [3, 3], 'f': [3, 3, 3],
-    'g': [4], 'h': [4, 4], 'i': [4, 4, 4],
-    'j': [5], 'k': [5, 5], 'l': [5, 5, 5],
-    'm': [6], 'n': [6, 6], 'o': [6, 6, 6],
-    'p': [7], 'q': [7, 7], 'r': [7, 7, 7], 's': [7, 7, 7, 7],
-    't': [8], 'u': [8, 8], 'v': [8, 8, 8],
-    'w': [9], 'x': [9, 9], 'y': [9, 9, 9], 'z':[9, 9, 9, 9]
-    }
+         'd': [3], 'e': [3, 3], 'f': [3, 3, 3],
+         'g': [4], 'h': [4, 4], 'i': [4, 4, 4],
+         'j': [5], 'k': [5, 5], 'l': [5, 5, 5],
+         'm': [6], 'n': [6, 6], 'o': [6, 6, 6],
+         'p': [7], 'q': [7, 7], 'r': [7, 7, 7], 's': [7, 7, 7, 7],
+         't': [8], 'u': [8, 8], 'v': [8, 8, 8],
+         'w': [9], 'x': [9, 9], 'y': [9, 9, 9], 'z': [9, 9, 9, 9]
+         }
     result = []
     for i in messsage:
         # print(i == ' ')
@@ -135,7 +134,7 @@ def message_to_numbers(messsage):
         if i.istitle():
             result.append(1)
             i = i.lower()
-        if len(result) > 0 and result[len(result)-1:][0] == d[i][0]:
+        if len(result) > 0 and result[len(result) - 1:][0] == d[i][0]:
             result.append(-1)
         # print(result[len(result)-1:])
         for k, v in d.items():
@@ -144,4 +143,3 @@ def message_to_numbers(messsage):
                     result.append(item)
 
     return result
-

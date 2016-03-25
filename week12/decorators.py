@@ -20,29 +20,31 @@ def say_hello(name):
 say_hello(44)
 
 
-
 def encrypt(some_num):
     def apply_cypher(func):
         result = func()
         cyphered = ''
         for i in result:
             if not i == ' ':
-                cyphered += chr(ord(i)+1)
+                cyphered += chr(ord(i) + 1)
             else:
                 cyphered += ' '
+
         def in_func():
             return cyphered
         return in_func
     return apply_cypher
 
+
 def log(some_file):
     def f(func):
         f = open(some_file, "a")
-        f.write('function was called at {}\n'.format( datetime.now()))
+        f.write('function was called at {}\n'.format(datetime.now()))
         return(func)
     return f
 
 some_num = 1
+
 
 @log('log.txt')
 @encrypt(some_num)
@@ -58,9 +60,10 @@ def performance(file_name):
         current = datetime.now()
         execute = func()
         current2 = datetime.now()
-        total =  current2 - current
+        total = current2 - current
         f = open(file_name, "a")
-        f.write('function was called and took {} seconds to complete\n'.format( total ))
+        f.write(
+            'function was called and took {} seconds to complete\n'.format(total))
         return(func)
     return f
 

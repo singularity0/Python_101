@@ -1,8 +1,5 @@
-# problem descriptions here:
-# https://github.com/HackBulgaria/Programming101-Python/tree/master/week01/Dive-Into-Python
-
-
 def sum_half(n):
+    n = str(n)
     sum = 0
     for i in range(0, len(n) // 2):
         sum += int(n[i])
@@ -46,19 +43,20 @@ def is_decreasing(seq):
 
 
 def is_transversal(transversal, family):
-    pass
-    # for i in range (0, len(family)):
-    #     if not any(t in family[i] for t in transversal):
-    #         return False
-    #     else:
-    #         return True
+    times = 0
+    for i in range(0, len(family)):
+        if not any(t in family[i] for t in transversal):
+            return False
+    return True
     # for i in range (0, len(transversal)):
     #     if transversal[i] in any(j in family[i] for j in family[i]):
     #         return False
     # return True
+    #
 # print(is_transversal((4, 5, 6), ((5, 7, 9), (1, 4, 3), (2, 6))))
 # print(is_transversal((1, 2), ((1, 5), (2, 3), (4, 7))))
 # print(is_transversal((2, 3, 4), ((1, 7), (2, 3, 5), (4, 8))))
+# print(is_transversal((4, 5, 6), ((5, 5, 7, 9), (1, 4, 3), (2, 6))))
 
 
 def is_palindrome(n):
@@ -145,19 +143,72 @@ def sum_matrix(m):
             sum += m[i][j]
             print(sum)
     return sum
+# def sum_matrix(matr):
+#     # Using list comprehensions
+#     return sum([sum(row) for row in matr])
 
 # print(sum_matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]]))
 # print(sum_matrix([[1, 2], [3, 4], [5, 6], [7, 8], [9, 10]]))
 
 
+
+# We are centered at 4.
+# How to move to get to 4's neighbors
+# 1      2     3
+# 8     >4<    7
+# 9      5     6
+NEIGHBORS = [
+    (-1, -1), (0, -1), (1, -1),  # Get to 1, 2 and 3
+    (-1, 0), (1, 0),  # Get to 8 and 7
+    (-1, 1), (0, 1), (1, 1)]  # Get to 9, 5 and 6
+
+
+def within_bounds(m, at):
+    if at[0] < 0 or at[0] >= len(m):
+        return False
+
+    if at[1] < 0 or at[1] >= len(m[0]):
+        return False
+
+    return True
+
+
+def bomb(m, at):
+    if not within_bounds(m, at):
+        return m
+
+    target_value = m[at[0]][at[1]]
+    dx, dy = 0, 1
+
+    for position in NEIGHBORS:
+        position = (at[dx] + position[dx], at[dy] + position[dy])
+
+        if within_bounds(m, position):
+            position_value = m[position[dx]][position[dy]]
+            # This min() is not to go less than zero
+            m[position[dx]][position[dy]] -= min(target_value, position_value)
+
+    return m
+
+
 def matrix_bombing_plan(m):
-    d = {}  # TBD
-    for i in range(0, (len(m))):
-        for j in range(0, (len(m[i]))):
-            # m[i+1][j] = m[i+1][j] -m[i][j]
-            d[(i, j)] = 1
+    result = {}
 
-    return d
+    for i in range(0, len(m)):
+        for j in range(0, len(m[0])):
+            bombed = bomb(copy.deepcopy(m), (i, j))
+            result[(i, j)] = sum_matrix(bombed)
 
-# print(matrix_bombing_plan([[1, 2, 3], [4, 5, 6], [7, 8, 9]]))
+    return result
+
+
+def main():
+    m = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+    result = matrix_bombing_plan(m)
+
+    pp = pprint.PrettyPrinter()
+    pp.pprint(result)
+
+if __name__ == '__main__':
+    main()
 

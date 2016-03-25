@@ -1,12 +1,12 @@
 import sys
 import re
 
+
 class Monom:
     def __init__(self, coef=0, var=0, deg=0):
         self.coef = coef
         self.var = var
         self.deg = deg
-
 
 
 def split_by_monoms(polynom):
@@ -16,6 +16,7 @@ def split_by_monoms(polynom):
     polynom = polynom.split('+')
     return (polynom)
 
+
 def parse(split):
     # print(split)
     parsed = []
@@ -23,17 +24,20 @@ def parse(split):
 
         if 'x' in monom:
             if monom.index('x') == 0:
-                monom = Monom(  coef=1, var=('x'), deg=monom[monom.index('x')+2:]  )
+                monom = Monom(
+                    coef=1, var=('x'), deg=monom[monom.index('x') + 2:])
             elif not ('^') in monom:
                 monom = Monom(coef=monom[:monom.index('x')], var=('x'))
             else:
-                monom = Monom(  coef=monom[:monom.index('x')], var=('x'), deg=monom[monom.index('x')+2:]  )
+                monom = Monom(coef=monom[:monom.index('x')], var=(
+                    'x'), deg=monom[monom.index('x') + 2:])
         else:
             monom = Monom(coef=int(monom))
 
         parsed.append(monom)
         # print(parsed[0].deg)
     return parsed
+
 
 def calculate_similar(monoms):
     dict_deg = {}
@@ -45,7 +49,7 @@ def calculate_similar(monoms):
                 if not i.deg in dict_deg:
                     dict_deg[i.deg] = [i.coef]
                 else:
-                   dict_deg[i.deg].append(i.coef)
+                    dict_deg[i.deg].append(i.coef)
             else:
                 if not 0 in dict_deg:
                     dict_deg[0] = [i.coef]
@@ -54,10 +58,10 @@ def calculate_similar(monoms):
         else:
             if not 'number' in dict_deg:
                 dict_deg['number'] = [i.coef]
-            else:    
+            else:
                 dict_deg['number'].append(i.coef)
-    for k,v in dict_deg.items():
-        if len(v)>1:
+    for k, v in dict_deg.items():
+        if len(v) > 1:
             dict_deg[k] = sum([int(x) for x in v])
         else:
             dict_deg[k] = v[0]
@@ -71,6 +75,7 @@ def calculate_similar(monoms):
     # print(result_s[0].coef)
     return result_s
 
+
 def derive(expr):
     result = ''
     if (len(expr) == 1 and expr[0].coef == 1):
@@ -79,11 +84,11 @@ def derive(expr):
     for i in expr:
         if i.var:
             if result:
-                result+= '+'
+                result += '+'
             if i.deg:
-                result += str(int(i.deg)*int(i.coef))+'x'
-                if int(i.deg)>2:
-                    result += '^{}'.format(int(i.deg)-1)
+                result += str(int(i.deg) * int(i.coef)) + 'x'
+                if int(i.deg) > 2:
+                    result += '^{}'.format(int(i.deg) - 1)
             else:
                 result += str(i.coef)
         else:
@@ -93,15 +98,16 @@ def derive(expr):
                 result += str(0)
     return result
 
+
 def printing_start(ex):
     ex = ex.replace('+', ' + ')
-
     print('The derivative of f(x) = {} is:'.format(ex))
+
 
 def printing_end(ex):
     ex = ex.replace('+', ' + ')
-
     print('f\'(x) = {}'.format(ex))
+
 
 def remove_empty_spaces(expression):
     clean = ''
@@ -112,8 +118,8 @@ def remove_empty_spaces(expression):
             clean += i
     return clean
 
-def main():
 
+def main():
 
     polynom = sys.argv[1:]
     polynom_clean = remove_empty_spaces(polynom)
@@ -126,4 +132,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
